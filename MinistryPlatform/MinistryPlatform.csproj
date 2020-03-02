@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Demo|AnyCPU'" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Integration|AnyCPU'" />
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="System.Reactive" Version="4.3.2" />
+    <PackageReference Include="Crossroads.Web.Common" Version="2.2.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Opportunities\OpportunityRepository.cs" />
+  </ItemGroup>
+</Project>

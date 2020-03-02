@@ -1,0 +1,59 @@
+﻿apiVersion: extensions/v1beta1 
+kind: Deployment 
+metadata: 
+  name: crds-contact
+  namespace: api
+spec: 
+  replicas: 2 
+  strategy: 
+    type: RollingUpdate 
+    rollingUpdate: 
+      maxSurge: 2 
+      maxUnavailable: 0 
+  template: 
+    metadata: 
+      labels: 
+        app: crds-contact
+    spec:
+      containers: 
+        - name: crds-contact
+          image: crdschurch/crds-service-contact:$DOCKER_TAG 
+          imagePullPolicy: Always 
+          ports: 
+            - containerPort: 5050 
+          resources: 
+            limits: 
+              memory: "512Mi" 
+              cpu: "700m" 
+            requests: 
+              memory: "16Mi" 
+              cpu: "100m" 
+          env: 
+            - name: APP_LOG_ROOT
+              value: $APP_LOG_ROOT
+            - name: APP_NAME
+              value: $APP_NAME
+            - name: ASPNETCORE_ENVIRONMENT
+              value: $ASPNETCORE_ENVIRONMENT
+            - name: AUTH_SERVICE_BASE_URL
+              value: $AUTH_SERVICE_BASE_URL
+            - name: CRDS_ENV
+              value: $CRDS_ENV
+            - name: CRDS_MP_COMMON_CLIENT_ID
+              value: $CRDS_MP_COMMON_CLIENT_ID
+            - name: CRDS_MP_COMMON_CLIENT_SECRET
+              value: $CRDS_MP_COMMON_CLIENT_SECRET
+            - name: LOGZ_IO_KEY
+              value: $LOGZ_IO_KEY
+            - name: MP_OAUTH_BASE_URL
+              value: $MP_OAUTH_BASE_URL
+            - name: MP_REST_API_ENDPOINT
+              value: $MP_REST_API_ENDPOINT
+            - name: NEW_RELIC_LICENSE_KEY            
+              value: $NR_INSTALL_KEY
+            - name: NEW_RELIC_APP_NAME  
+              value: $NR_APP_NAME
+            - name: NEW_RELIC_DISTRIBUTED_TRACING_ENABLED
+              value: $NEW_RELIC_DISTRIBUTED_TRACING_ENABLED
+            - name: SIGNALR_CONNECTION
+              value: $SIGNALR_CONNECTION
