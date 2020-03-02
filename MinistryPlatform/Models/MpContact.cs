@@ -10,7 +10,13 @@ namespace MinistryPlatform.Models
         [JsonProperty(PropertyName = "Contact_ID")]
         public int ContactId { get; set; }
 
-        [JsonProperty(PropertyName = "Household_ID")]
-        public int HouseholdId { get; set; }
+        [JsonProperty(PropertyName = "Nickname")]
+        public string Nickname { get; set; }
+
+        [JsonProperty(PropertyName = "Last_Name")]
+        public string LastName { get; set; }
+
+        [JsonProperty(PropertyName = "Email_Address")]
+        public string EmailAddress { get; set; }
     }
 }

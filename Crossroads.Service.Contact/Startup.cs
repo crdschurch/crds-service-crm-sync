@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
 using Crossroads.Microservice.Logging;
-using Crossroads.Service.Contact.Interfaces;
-using Crossroads.Service.Contact.Services;
 using Crossroads.Web.Common.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,16 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using MinistryPlatform.GroupParticipant;
-using MinistryPlatform.Interfaces;
-using MinistryPlatform.Participants;
-using MinistryPlatform.Repositories;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
 using System.IO;
 using System.Reflection;
+using Crossroads.Service.Contact.Services.Contacts;
+using MinistryPlatform.Contacts;
 
 namespace Crossroads.Service.Contact
 {
@@ -98,17 +93,10 @@ namespace Crossroads.Service.Contact
             CrossroadsWebCommonConfig.Register(services);
 
             // Service Layer
-            services.AddSingleton<IEventService, EventService>();
-            services.AddSingleton<IGroupService, GroupService>();
-            services.AddSingleton<IParticipantService, ParticipantService>();
-            services.AddSingleton<IReportService, ReportService>();
+            services.AddSingleton<IContactService, ContactService>();
 
             // Repo Layer
-            services.AddSingleton<IEventRepository, EventRepository>();
-            services.AddSingleton<IGroupRepository, GroupRepository>();
-            services.AddSingleton<IParticipantRepository, ParticipantRepository>();
-            services.AddSingleton<IGroupParticipantRepository, GroupParticipantRepository>();
-            services.AddSingleton<IReportRepository, ReportRepository>();
+            services.AddSingleton<IContactRepository, ContactRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

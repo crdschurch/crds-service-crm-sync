@@ -12,8 +12,7 @@ namespace Mock
             {
                 new MpContact
                 {
-                    ContactId = contactId,
-                    HouseholdId = householdId
+                    ContactId = contactId
                 }
             };
 

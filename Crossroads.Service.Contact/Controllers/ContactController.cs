@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
 using System;
+using System.Threading.Tasks;
+using Crossroads.Service.Contact.Services.Contacts;
 
 namespace Crossroads.Service.Contact.Controllers
 {
@@ -14,11 +16,14 @@ namespace Crossroads.Service.Contact.Controllers
     public class ContactController : AuthBaseController
     {
         private static Logger _logger = LogManager.GetCurrentClassLogger();
+        private readonly IContactService _contactService;
 
         public ContactController(IAuthTokenExpiryService authTokenExpiryService,
-            IAuthenticationRepository authenticationRepository)
+            IAuthenticationRepository authenticationRepository,
+            IContactService contactService)
             : base(authenticationRepository, authTokenExpiryService)
         {
+            _contactService = contactService;
         }
 
         /// <summary>
@@ -57,6 +62,26 @@ namespace Crossroads.Service.Contact.Controllers
             {
                 _logger.Error($"Error in SecureHelloWorld: {ex}");
                 Console.WriteLine($"Error in SecureHelloWorld: {ex.Message}");
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Get Contact by Id
+        /// </summary>
+        [HttpGet("{contactId}")]
+        [ProducesResponseType(typeof(string), 200)]
+        public async Task<IActionResult> GetContactById(int contactId)
+        {
+            try
+            {
+                var contact = await _contactService.GetContactById(contactId);
+                return Ok(contact);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error($"Error in GetContactById: {ex}");
+                Console.WriteLine($"Error in GetContactById: {ex.Message}");
                 return StatusCode(500, ex.Message);
             }
         }
