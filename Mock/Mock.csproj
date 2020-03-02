@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Demo|AnyCPU'" />
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Integration|AnyCPU'" />
+
+  <ItemGroup>
+    <PackageReference Include="Crossroads.Web.Common" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Crossroads.Service.Contact\Crossroads.Service.Contact.csproj" />
+    <ProjectReference Include="..\MinistryPlatform\MinistryPlatform.csproj" />
+  </ItemGroup>
+
+</Project>

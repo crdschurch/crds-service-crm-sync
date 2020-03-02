@@ -1,0 +1,14 @@
+﻿apiVersion: v1 
+kind: Service 
+metadata: 
+  name: crds-contact-service
+  namespace: api
+  labels: 
+    app: crds-contact-service
+spec: 
+  ports: 
+  - name: dotnet 
+    port: 80
+    targetPort: 80 
+  selector: 
+    app: crds-contact
