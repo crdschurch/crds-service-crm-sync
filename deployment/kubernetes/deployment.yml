@@ -31,6 +31,8 @@ spec:
           env: 
             - name: APP_LOG_ROOT
               value: $APP_LOG_ROOT
+            - name: API_HOST_NAME
+              value: $API_HOST_NAME
             - name: APP_NAME
               value: $APP_NAME
             - name: ASPNETCORE_ENVIRONMENT
