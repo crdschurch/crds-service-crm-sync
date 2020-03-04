@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27004.2005
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29403.142
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MinistryPlatform", "MinistryPlatform\MinistryPlatform.csproj", "{8A123163-923C-4082-ADED-1D4A700938F7}"
 EndProject
@@ -13,6 +13,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossroads.Service.Contact", "Crossroads.Service.Contact\Crossroads.Service.Contact.csproj", "{6093B92C-0BC3-4D23-9619-4957E0AC035A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossroads.Service.Contact.Test", "Crossroads.Service.Contact.Tests\Crossroads.Service.Contact.Test.csproj", "{351B1FAA-3DB9-4456-A829-2C0CC2E58FE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalSync", "ExternalSync\ExternalSync.csproj", "{BA761420-37DF-45A3-9642-CF48AED43887}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalSync.Test", "ExternalSync.Test\ExternalSync.Test.csproj", "{2D135B97-F2AE-4CC7-979D-699D684102F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -70,6 +74,22 @@ Global
 		{351B1FAA-3DB9-4456-A829-2C0CC2E58FE4}.Integration|Any CPU.Build.0 = Debug|Any CPU
 		{351B1FAA-3DB9-4456-A829-2C0CC2E58FE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{351B1FAA-3DB9-4456-A829-2C0CC2E58FE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA761420-37DF-45A3-9642-CF48AED43887}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA761420-37DF-45A3-9642-CF48AED43887}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA761420-37DF-45A3-9642-CF48AED43887}.Demo|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA761420-37DF-45A3-9642-CF48AED43887}.Demo|Any CPU.Build.0 = Debug|Any CPU
+		{BA761420-37DF-45A3-9642-CF48AED43887}.Integration|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA761420-37DF-45A3-9642-CF48AED43887}.Integration|Any CPU.Build.0 = Debug|Any CPU
+		{BA761420-37DF-45A3-9642-CF48AED43887}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA761420-37DF-45A3-9642-CF48AED43887}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D135B97-F2AE-4CC7-979D-699D684102F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D135B97-F2AE-4CC7-979D-699D684102F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D135B97-F2AE-4CC7-979D-699D684102F5}.Demo|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D135B97-F2AE-4CC7-979D-699D684102F5}.Demo|Any CPU.Build.0 = Debug|Any CPU
+		{2D135B97-F2AE-4CC7-979D-699D684102F5}.Integration|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D135B97-F2AE-4CC7-979D-699D684102F5}.Integration|Any CPU.Build.0 = Debug|Any CPU
+		{2D135B97-F2AE-4CC7-979D-699D684102F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D135B97-F2AE-4CC7-979D-699D684102F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

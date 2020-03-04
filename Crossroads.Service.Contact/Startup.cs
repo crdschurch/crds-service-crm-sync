@@ -14,6 +14,8 @@ using System.IO;
 using System.Reflection;
 using Crossroads.Service.Contact.Services.Contacts;
 using MinistryPlatform.Contacts;
+using ExternalSync.Hubspot;
+using ExternalSync.TokenService;
 
 namespace Crossroads.Service.Contact
 {
@@ -97,6 +99,10 @@ namespace Crossroads.Service.Contact
 
             // Repo Layer
             services.AddSingleton<IContactRepository, ContactRepository>();
+
+            // External Sync Layer
+            services.AddSingleton<IHubspotClient, HubspotClient>();
+            services.AddSingleton<ITokenService, TokenService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
