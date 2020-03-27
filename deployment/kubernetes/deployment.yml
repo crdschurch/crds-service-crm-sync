@@ -1,7 +1,7 @@
 ﻿apiVersion: extensions/v1beta1 
 kind: Deployment 
 metadata: 
-  name: crds-contact
+  name: crds-crm-sync
   namespace: api
 spec: 
   replicas: 2 
@@ -13,11 +13,11 @@ spec:
   template: 
     metadata: 
       labels: 
-        app: crds-contact
+        app: crds-crm-sync
     spec:
       containers: 
-        - name: crds-contact
-          image: crdschurch/crds-service-contact:$DOCKER_TAG 
+        - name: crds-crm-sync
+          image: crdschurch/crds-service-crm-sync:$DOCKER_TAG 
           imagePullPolicy: Always 
           ports: 
             - containerPort: 5050 

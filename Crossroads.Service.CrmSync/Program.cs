@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.IO;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-using System.IO;
 
-namespace Crossroads.Service.Contact
+namespace Crossroads.Service.CrmSync
 {
     public class Program
     {

@@ -1,11 +1,11 @@
 ﻿version: '3' 
 services: 
-  CrossroadsServiceContact: 
+  CrossroadsServiceCrmSync: 
     build: 
       context: ../../ 
       dockerfile: ./deployment/docker/prod.Dockerfile
-    container_name: crds-service-contact
-    image: crdschurch/crds-service-contact:${DOCKER_TAG:-local} 
+    container_name: crds-service-crm-sync
+    image: crdschurch/crds-service-crm-sync:${DOCKER_TAG:-local} 
     # env_file:
     #   - ../../.env
     ports:

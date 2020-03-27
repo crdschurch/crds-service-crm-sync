@@ -1,7 +1,6 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace Crossroads.Service.Contact.Models
+namespace Crossroads.Service.CrmSync.Models
 {
     public class ContactDto
     {
