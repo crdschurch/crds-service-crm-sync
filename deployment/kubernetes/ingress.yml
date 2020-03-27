@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: contact-api-ingress
+  name: crm-sync-api-ingress
   namespace: api
   annotations:
     ingress.kubernetes.io/ingress.class: "nginx"
@@ -19,7 +19,7 @@ spec:
   - host: $API_HOST_NAME
     http:
       paths:
-      - path: /contact
+      - path: /crm-sync
         backend:
-          serviceName: crds-contact-service
+          serviceName: crds-crm-sync-service
           servicePort: 80
