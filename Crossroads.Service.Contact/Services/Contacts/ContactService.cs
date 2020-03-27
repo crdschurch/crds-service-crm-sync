@@ -1,21 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Crossroads.Service.Contact.Models;
+using Crossroads.Service.CrmSync.Models;
+using ExternalSync.Hubspot;
 using MinistryPlatform.Contacts;
+using MinistryPlatform.Groups;
 
-namespace Crossroads.Service.Contact.Services.Contacts
+namespace Crossroads.Service.CrmSync.Services.Contacts
 {
     public class ContactService : IContactService
     {
         private readonly IContactRepository _contactRepository;
+        private readonly IGroupRepository _groupRepository;
+        private readonly IHubspotClient _hubspotClient;
         private readonly IMapper _mapper;
 
-        public ContactService(IContactRepository contactRepository, IMapper mapper)
+        public ContactService(IContactRepository contactRepository, IGroupRepository groupRepository, 
+            IHubspotClient hubspotClient, IMapper mapper)
         {
             _contactRepository = contactRepository;
+            _groupRepository = groupRepository;
+            _hubspotClient = hubspotClient;
             _mapper = mapper;
         }
 
@@ -23,6 +28,14 @@ namespace Crossroads.Service.Contact.Services.Contacts
         {
             var mpContact = await _contactRepository.GetContactById(contactId);
             return _mapper.Map<ContactDto>(mpContact);
+        }
+
+        public async Task<bool> SyncGroupParticipantData()
+        {
+            var data = await _groupRepository.GetGroupParticipation(DateTime.Now.AddDays(-5), DateTime.Now);
+            var result = await _hubspotClient.SyncGroupParticipationData(data);
+            return result;
+            //_hubspotClient.
         }
     }
 }

@@ -1,13 +1,16 @@
 ﻿using AutoMapper;
-using Crossroads.Service.Contact.Models;
+using Crossroads.Service.CrmSync.Models;
 using MinistryPlatform.Models;
 
-public class MappingProfile : Profile
+namespace Crossroads.Service.CrmSync
 {
-    private const int MpAttendedId = 3;
-
-    public MappingProfile()
+    public class MappingProfile : Profile
     {
-        CreateMap<MpContact, ContactDto>();
+        private const int MpAttendedId = 3;
+
+        public MappingProfile()
+        {
+            CreateMap<MpContact, ContactDto>();
+        }
     }
 }
