@@ -18,7 +18,7 @@ RUN dotnet publish -c Release -o out
 # Step 1: Build runtime image 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 
 
-WORKDIR /app/crmsync
+WORKDIR /app/Crossroads.Service.CrmSync
  
 # Copy over the build from the previous step 
 COPY --from=build-env /app/Crossroads.Service.CrmSync/out . 
