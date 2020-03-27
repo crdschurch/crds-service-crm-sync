@@ -6,7 +6,7 @@ WORKDIR /app
 COPY . ./ 
 
 # Run Unit Tests 
-RUN dotnet test Crossroads.Service.Contact.Tests/Crossroads.Service.CrmSync.Test.csproj 
+RUN dotnet test Crossroads.Service.CrmSync.Tests/Crossroads.Service.CrmSync.Test.csproj
 RUN dotnet test MinistryPlatform.Test/MinistryPlatform.Test.csproj 
 
 # Change working directory to Crossroads.Service.CrmSync
