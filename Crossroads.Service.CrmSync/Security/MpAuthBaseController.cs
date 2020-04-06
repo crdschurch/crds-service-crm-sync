@@ -3,7 +3,7 @@ using Crossroads.Web.Common.Security;
 using Crossroads.Web.Common.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Crossroads.Service.Contact.Security
+namespace Crossroads.Service.CrmSync.Security
 {
     public abstract class MpAuthBaseController : ControllerBase
     {
