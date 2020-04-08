@@ -4,10 +4,12 @@ using System.Reflection;
 using AutoMapper;
 using Crossroads.Microservice.Logging;
 using Crossroads.Service.CrmSync.Services.Contacts;
+using Crossroads.Service.CrmSync.Services.Groups;
 using Crossroads.Web.Common.Configuration;
 using ExternalSync.Hubspot;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -95,6 +97,7 @@ namespace Crossroads.Service.CrmSync
 
             // Service Layer
             services.AddSingleton<IContactService, ContactService>();
+            services.AddSingleton<IGroupService, GroupService>();
 
             // Repo Layer
             services.AddSingleton<IContactRepository, ContactRepository>();

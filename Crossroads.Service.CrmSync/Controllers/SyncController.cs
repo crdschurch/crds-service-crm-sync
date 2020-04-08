@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Crossroads.Service.CrmSync.Services.Contacts;
+using Crossroads.Service.CrmSync.Services.Groups;
 using Crossroads.Web.Auth.Controllers;
 using Crossroads.Web.Common.Auth.Helpers;
 using Crossroads.Web.Common.Security;
@@ -17,10 +18,11 @@ namespace Crossroads.Service.CrmSync.Controllers
     {
         private static Logger _logger = LogManager.GetCurrentClassLogger();
         private readonly IContactService _contactService;
+        private readonly IGroupService _groupService;
 
         public SyncController(IAuthTokenExpiryService authTokenExpiryService,
             IAuthenticationRepository authenticationRepository,
-            IContactService contactService)
+            IContactService contactService, IGroupService groupService)
             : base(authenticationRepository, authTokenExpiryService)
         {
             _contactService = contactService;
@@ -96,7 +98,8 @@ namespace Crossroads.Service.CrmSync.Controllers
         {
             try
             {
-                _contactService.SyncGroupParticipantData();
+                var result = await _groupService.CreateGroupParticipantsFromFormData();
+                await _contactService.SyncGroupParticipantData();
                 return Ok();
             }
             catch (Exception ex)
