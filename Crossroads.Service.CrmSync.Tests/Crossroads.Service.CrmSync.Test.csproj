@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Crossroads.Service.Contact\Crossroads.Service.CrmSync.csproj" />
     <ProjectReference Include="..\Mock\Mock.csproj" />
   </ItemGroup>
 
