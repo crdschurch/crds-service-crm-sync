@@ -12,9 +12,4 @@
     <PackageReference Include="RestSharp" Version="106.6.10" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Crossroads.Service.Contact\Crossroads.Service.CrmSync.csproj" />
-    <ProjectReference Include="..\MinistryPlatform\MinistryPlatform.csproj" />
-  </ItemGroup>
-
 </Project>
