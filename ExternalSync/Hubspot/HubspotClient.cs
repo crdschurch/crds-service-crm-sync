@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Models.Models;
 using Newtonsoft.Json.Linq;
+using System.Net;
 
 namespace ExternalSync.Hubspot
 {
@@ -14,55 +15,34 @@ namespace ExternalSync.Hubspot
     {
         public async Task<bool> SyncGroupParticipationData(List<MpGroupMembership> mpGroupParticipations)
         {
+            bool isSuccessful = true;
             try
             {
-                //public PushpayClient(IPushpayTokenService pushpayTokenService, IRestClient restClient = null)
-                //{
-                //    _pushpayTokenService = pushpayTokenService;
-                //    _restClient = restClient ?? new RestClient();
-                //    _restClient.BaseUrl = apiUri;
-                //}
-
-                //public async Task<List<PushpayPaymentDto>> GetDonations(string settlementKey)
-                //{
-                //    var resource = $"settlement/{settlementKey}/payments";
-                //    var data = await CreateAndExecuteRequest(resource, Method.GET, donationsScope, null, true);
-                //    return JsonConvert.DeserializeObject<List<PushpayPaymentDto>>(data);
-                //}
-
-                var testParticipant = mpGroupParticipations.First();
-
-                //start with adding one contact for now
+                // Create rest client
                 var restClient = new RestClient();
                 restClient.BaseUrl = new Uri("https://api.hubapi.com");
-                var resource =
-                    $"/contacts/v1/contact/batch/<key goes here>";
 
-
-                var request = new RestRequest(Method.POST)
-                {
-                    //Resource = uriOrResource.StartsWith(apiUri.AbsoluteUri, StringComparison.Ordinal) ? uriOrResource.Replace(apiUri.AbsoluteUri, "") : uriOrResource
-                    Resource = resource
-                };
-
+                // Setup appropriate HubSpot URL with api key
+                var request = new RestRequest(Method.POST);
+                request.Resource = $"/contacts/v1/contact/batch/?hapikey=<key goes here>";
                 request.AddHeader("Accept", "application/json");
-                //var x = JsonConvert.SerializeObject(testParticipant.GroupMembership);
 
-                var body = SerializeContactsArray(mpGroupParticipations);
+                //TODO: Send JSON objects to HubSpot in batches of 100 or less
+                int recordCount = 0;
+                do
+                {
+                    var recordsToProcess = mpGroupParticipations.Skip(recordCount).Take(100);
+                    recordCount += 100;
+                    var body = SerializeContactsArray(mpGroupParticipations);
+                    request.AddParameter("application/json", body, ParameterType.RequestBody);
 
-
-                request.AddParameter("application/json", body, ParameterType.RequestBody);
-
-                //if (queryParams != null)
-                //{
-                //    foreach (QueryParameter entry in queryParams)
-                //    {
-                //        // do something with entry.Value or entry.Key
-                //        request.AddQueryParameter(entry.Key, entry.Value);
-                //    }
-                //}
-
-                var response = restClient.Execute(request);
+                    var response = restClient.Execute(request);
+                    if (response.StatusCode == HttpStatusCode.BadRequest)
+                    {
+                        isSuccessful = false;
+                        //TODO: Log a message and the data
+                    }
+                } while (recordCount < mpGroupParticipations.Count);
             }
             catch (Exception e)
             {
@@ -70,61 +50,27 @@ namespace ExternalSync.Hubspot
                 throw;
             }
 
-            return true;
+            //      Return true if no 400 errors were encountered, else return a false
+            return isSuccessful;
         }
 
         public string SerializeContactsArray(List<MpGroupMembership> mpGroupMemberships)
         {
-            //// create list of xml nodes
-            //var nodes = new List<XElement>();
-
-            //foreach (var mpGroupMembership in mpGroupMemberships)
-            //{
-            //    var membershipElement = new XElement();
-            //}
-
-
-            //var membershipsArray = new XElement(
-            //    new XElement("test"));
-
             var membership = new JArray();
-
-            //foreach (var mpGroupMembership in mpGroupMemberships)
-            //{
-            //    var membershipObject = new JObject(
-            //        new JProperty("email", mpGroupMembership.ContactEmail,
-            //        new JObject(
-            //            new JProperty("properties",
-            //                new JArray { new JObject
-            //                            (new JProperty("GroupMembership", mpGroupMembership.GroupMembership)) }
-            //                ))));
-
-            //    membership.Add(membershipObject);
-            //}
-
-            //foreach (var mpGroupMembership in mpGroupMemberships)
-            //{
-            //    var membershipObject = new JObject(
-            //        new JProperty("email", mpGroupMembership.ContactEmail),
-            //        new JProperty("properties",
-            //            new JObject(
-            //                new JProperty("properties",
-            //                    new JArray { new JObject
-            //                        (new JProperty("GroupMembership", mpGroupMembership.GroupMembership)) }
-            //                ))));
-
-            //    membership.Add(membershipObject);
-            //}
 
             foreach (var mpGroupMembership in mpGroupMemberships)
             {
                 var membershipObject = new JObject(
                     new JProperty("email", mpGroupMembership.ContactEmail),
                     new JProperty("properties",
-                        new JArray { new JObject( new JProperty("property", "GroupMembership"), //mpGroupMembership.GroupMembership) }
-                                     new JProperty("value", mpGroupMembership.GroupMembership)) }
+                        new JArray { 
+                            new JObject( 
+                                new JProperty("property", "GroupMembership"),
+                                new JProperty("value", mpGroupMembership.GroupMembership)
                             )
-                    );
+                        }
+                    )
+                );
 
                 membership.Add(membershipObject);
             }
