@@ -98,7 +98,6 @@ namespace Crossroads.Service.CrmSync.Controllers
         {
             try
             {
-                var result = await _groupService.CreateGroupParticipantsFromFormData();
                 await _contactService.SyncGroupParticipantData();
                 return Ok();
             }

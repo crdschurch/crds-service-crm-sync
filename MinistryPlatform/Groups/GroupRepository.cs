@@ -33,8 +33,7 @@ namespace MinistryPlatform.Groups
             var parameters = new Dictionary<string, object>
             {
                 {"@StartDate", startDate},
-                {"@EndDate", endDate},
-                {"@GroupId", 198135}
+                {"@EndDate", endDate}
             };
 
             var result = (await MpRestBuilder.NewRequestBuilder()
