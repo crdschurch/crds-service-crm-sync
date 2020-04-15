@@ -27,7 +27,7 @@ namespace ExternalSync.Hubspot
                 request.Resource = $"/contacts/v1/contact/batch/?hapikey=<key goes here>";
                 request.AddHeader("Accept", "application/json");
 
-                //TODO: Send JSON objects to HubSpot in batches of 100 or less
+                // Send JSON objects to HubSpot in batches of 100 or less
                 int recordCount = 0;
                 do
                 {
@@ -50,7 +50,7 @@ namespace ExternalSync.Hubspot
                 throw;
             }
 
-            //      Return true if no 400 errors were encountered, else return a false
+            // Return true if no 400 errors were encountered, else return false
             return isSuccessful;
         }
 
