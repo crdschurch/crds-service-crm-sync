@@ -24,7 +24,8 @@ namespace ExternalSync.Hubspot
 
                 // Setup appropriate HubSpot URL with api key
                 var request = new RestRequest(Method.POST);
-                request.Resource = $"/contacts/v1/contact/batch/?hapikey=<key goes here>";
+                var hubSpotApiKey = Environment.GetEnvironmentVariable("HUBSPOT_API_KEY");
+                request.Resource = $"/contacts/v1/contact/batch/?hapikey={hubSpotApiKey}";
                 request.AddHeader("Accept", "application/json");
 
                 // Send JSON objects to HubSpot in batches of 100 or less
@@ -36,12 +37,12 @@ namespace ExternalSync.Hubspot
                     var body = SerializeContactsArray(mpGroupParticipations);
                     request.AddParameter("application/json", body, ParameterType.RequestBody);
 
-                    var response = restClient.Execute(request);
-                    if (response.StatusCode == HttpStatusCode.BadRequest)
-                    {
-                        isSuccessful = false;
-                        //TODO: Log a message and the data
-                    }
+                    //var response = restClient.Execute(request);
+                    //if (response.StatusCode == HttpStatusCode.BadRequest)
+                    //{
+                    //    isSuccessful = false;
+                    //    //TODO: Log a message and the data
+                    //}
                 } while (recordCount < mpGroupParticipations.Count);
             }
             catch (Exception e)
