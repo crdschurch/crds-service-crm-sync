@@ -37,12 +37,12 @@ namespace ExternalSync.Hubspot
                     var body = SerializeContactsArray(mpGroupParticipations);
                     request.AddParameter("application/json", body, ParameterType.RequestBody);
 
-                    //var response = restClient.Execute(request);
-                    //if (response.StatusCode == HttpStatusCode.BadRequest)
-                    //{
-                    //    isSuccessful = false;
-                    //    //TODO: Log a message and the data
-                    //}
+                    var response = restClient.Execute(request);
+                    if (response.StatusCode == HttpStatusCode.BadRequest)
+                    {
+                        isSuccessful = false;
+                        //TODO: Log a message and the data
+                    }
                 } while (recordCount < mpGroupParticipations.Count);
             }
             catch (Exception e)
