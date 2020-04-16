@@ -18,7 +18,7 @@
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
-    <StartupObject>Crossroads.Service.CrmSync.Program</StartupObject>
+    <StartupObject></StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Security\" />
