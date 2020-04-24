@@ -24,7 +24,7 @@ namespace Crossroads.Service.CrmSync.Services.Contacts
 
         public async Task<bool> SyncGroupParticipantData()
         {
-            var data = await _groupRepository.GetGroupParticipation(DateTime.Now.AddDays(-1), DateTime.Now);
+            var data = await _groupRepository.GetGroupParticipation(DateTime.Now.AddDays(-180), DateTime.Now);
             var result = await _hubspotClient.SyncGroupParticipationData(data);
             return result;
         }
