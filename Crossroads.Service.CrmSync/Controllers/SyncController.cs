@@ -72,7 +72,7 @@ namespace Crossroads.Service.CrmSync.Controllers
         /// <summary>
         /// Sync predefined groups to HubSpot
         /// </summary>
-        [HttpGet("/groups")]
+        [HttpGet("groups")]
         [AllowAnonymous]
         [ProducesResponseType(typeof(string), 200)]
         public async Task<IActionResult> SyncGroupData()
