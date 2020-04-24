@@ -1,7 +1,7 @@
 ﻿apiVersion: extensions/v1beta1 
 kind: Deployment 
 metadata: 
-  name: crds-contact
+  name: crds-crm-sync
   namespace: api
 spec: 
   replicas: 2 
@@ -13,11 +13,11 @@ spec:
   template: 
     metadata: 
       labels: 
-        app: crds-contact
+        app: crds-crm-sync
     spec:
       containers: 
-        - name: crds-contact
-          image: crdschurch/crds-service-contact:$DOCKER_TAG 
+        - name: crds-crm-sync
+          image: crdschurch/crds-service-crm-sync:$DOCKER_TAG 
           imagePullPolicy: Always 
           ports: 
             - containerPort: 5050 
@@ -31,6 +31,8 @@ spec:
           env: 
             - name: APP_LOG_ROOT
               value: $APP_LOG_ROOT
+            - name: API_HOST_NAME
+              value: $API_HOST_NAME
             - name: APP_NAME
               value: $APP_NAME
             - name: ASPNETCORE_ENVIRONMENT
@@ -43,6 +45,8 @@ spec:
               value: $CRDS_MP_COMMON_CLIENT_ID
             - name: CRDS_MP_COMMON_CLIENT_SECRET
               value: $CRDS_MP_COMMON_CLIENT_SECRET
+            - name: HUBSPOT_API_KEY
+              value: $HUBSPOT_API_KEY
             - name: LOGZ_IO_KEY
               value: $LOGZ_IO_KEY
             - name: MP_OAUTH_BASE_URL

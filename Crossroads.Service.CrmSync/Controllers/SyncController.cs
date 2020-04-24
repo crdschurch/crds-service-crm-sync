@@ -1,26 +1,29 @@
-﻿using Crossroads.Web.Auth.Controllers;
+﻿using System;
+using System.Threading.Tasks;
+using Crossroads.Service.CrmSync.Services.Contacts;
+using Crossroads.Service.CrmSync.Services.Groups;
+using Crossroads.Web.Auth.Controllers;
 using Crossroads.Web.Common.Auth.Helpers;
 using Crossroads.Web.Common.Security;
 using Crossroads.Web.Common.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
-using System;
-using System.Threading.Tasks;
-using Crossroads.Service.Contact.Services.Contacts;
 
-namespace Crossroads.Service.Contact.Controllers
+namespace Crossroads.Service.CrmSync.Controllers
 {
     [Route("api/[controller]")]
     [RequiresAuthorization]
-    public class ContactController : AuthBaseController
+    public class SyncController : AuthBaseController
     {
         private static Logger _logger = LogManager.GetCurrentClassLogger();
         private readonly IContactService _contactService;
 
-        public ContactController(IAuthTokenExpiryService authTokenExpiryService,
+        public SyncController(
+            IAuthTokenExpiryService authTokenExpiryService,
             IAuthenticationRepository authenticationRepository,
-            IContactService contactService)
+            IContactService contactService
+            )
             : base(authenticationRepository, authTokenExpiryService)
         {
             _contactService = contactService;
@@ -67,16 +70,17 @@ namespace Crossroads.Service.Contact.Controllers
         }
 
         /// <summary>
-        /// Get Contact by Id
+        /// Sync predefined groups to HubSpot
         /// </summary>
-        [HttpGet("{contactId}")]
+        [HttpGet("groups")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(string), 200)]
-        public async Task<IActionResult> GetContactById(int contactId)
+        public async Task<IActionResult> SyncGroupData()
         {
             try
             {
-                var contact = await _contactService.GetContactById(contactId);
-                return Ok(contact);
+                await _contactService.SyncGroupParticipantData();
+                return Ok();
             }
             catch (Exception ex)
             {

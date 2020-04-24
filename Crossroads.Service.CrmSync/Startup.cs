@@ -1,21 +1,23 @@
 ﻿using AutoMapper;
 using Crossroads.Microservice.Logging;
+using Crossroads.Service.CrmSync.Services.Contacts;
+using Crossroads.Service.CrmSync.Services.Groups;
 using Crossroads.Web.Common.Configuration;
+using ExternalSync.Hubspot;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using MinistryPlatform.Contacts;
+using MinistryPlatform.Groups;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System;
 using System.IO;
 using System.Reflection;
-using Crossroads.Service.Contact.Services.Contacts;
-using MinistryPlatform.Contacts;
 
-namespace Crossroads.Service.Contact
+namespace Crossroads.Service.CrmSync
 {
     public class Startup
     {
@@ -94,9 +96,14 @@ namespace Crossroads.Service.Contact
 
             // Service Layer
             services.AddSingleton<IContactService, ContactService>();
+            services.AddSingleton<IGroupService, GroupService>();
 
             // Repo Layer
             services.AddSingleton<IContactRepository, ContactRepository>();
+            services.AddSingleton<IGroupRepository, GroupRepository>();
+
+            // External Sync Layer
+            services.AddSingleton<IHubspotClient, HubspotClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
