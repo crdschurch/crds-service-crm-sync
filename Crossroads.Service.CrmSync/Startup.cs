@@ -1,9 +1,7 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
-using AutoMapper;
+﻿using AutoMapper;
 using Crossroads.Microservice.Logging;
 using Crossroads.Service.CrmSync.Services.Contacts;
+using Crossroads.Service.CrmSync.Services.Groups;
 using Crossroads.Web.Common.Configuration;
 using ExternalSync.Hubspot;
 using Microsoft.AspNetCore.Builder;
@@ -15,6 +13,9 @@ using Microsoft.OpenApi.Models;
 using MinistryPlatform.Contacts;
 using MinistryPlatform.Groups;
 using Swashbuckle.AspNetCore.SwaggerUI;
+using System;
+using System.IO;
+using System.Reflection;
 
 namespace Crossroads.Service.CrmSync
 {
@@ -95,6 +96,7 @@ namespace Crossroads.Service.CrmSync
 
             // Service Layer
             services.AddSingleton<IContactService, ContactService>();
+            services.AddSingleton<IGroupService, GroupService>();
 
             // Repo Layer
             services.AddSingleton<IContactRepository, ContactRepository>();

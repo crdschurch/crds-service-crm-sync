@@ -18,6 +18,7 @@
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
+    <StartupObject></StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Security\" />
