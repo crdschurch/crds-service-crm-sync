@@ -32,9 +32,9 @@ namespace ExternalSync.Hubspot
                 int recordCount = 0;
                 do
                 {
-                    var recordsToProcess = mpGroupParticipations.Skip(recordCount).Take(100);
-                    recordCount += 100;
-                    var body = SerializeContactsArray(mpGroupParticipations);
+                    var recordsToProcess = mpGroupParticipations.Skip(recordCount).Take(1);
+                    recordCount += recordsToProcess.Count();
+                    var body = SerializeContactsArray(recordsToProcess.ToList<MpGroupMembership>());
                     request.AddParameter("application/json", body, ParameterType.RequestBody);
 
                     var response = restClient.Execute(request);
