@@ -45,6 +45,8 @@ spec:
               value: $CRDS_MP_COMMON_CLIENT_ID
             - name: CRDS_MP_COMMON_CLIENT_SECRET
               value: $CRDS_MP_COMMON_CLIENT_SECRET
+            - name: HUBSPOT_API_KEY
+              value: $HUBSPOT_API_KEY
             - name: LOGZ_IO_KEY
               value: $LOGZ_IO_KEY
             - name: MP_OAUTH_BASE_URL
