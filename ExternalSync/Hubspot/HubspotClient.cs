@@ -32,15 +32,16 @@ namespace ExternalSync.Hubspot
                 int recordCount = 0;
                 do
                 {
-                    var recordsToProcess = mpGroupParticipations.Skip(recordCount).Take(100);
-                    recordCount += 100;
-                    var body = SerializeContactsArray(mpGroupParticipations);
-                    request.AddParameter("application/json", body, ParameterType.RequestBody);
+                    var recordsToProcess = mpGroupParticipations.Skip(recordCount).Take(1);
+                    recordCount += recordsToProcess.Count();
+                    var body = SerializeContactsArray(recordsToProcess.ToList<MpGroupMembership>());
+                    request.AddOrUpdateParameter("application/json", body, ParameterType.RequestBody);
 
                     var response = restClient.Execute(request);
                     if (response.StatusCode == HttpStatusCode.BadRequest)
                     {
                         isSuccessful = false;
+                        Console.WriteLine(body);
                         //TODO: Log a message and the data
                     }
                 } while (recordCount < mpGroupParticipations.Count);
@@ -62,11 +63,11 @@ namespace ExternalSync.Hubspot
             foreach (var mpGroupMembership in mpGroupMemberships)
             {
                 var membershipObject = new JObject(
-                    new JProperty("email", mpGroupMembership.ContactEmail),
+                    new JProperty("email", mpGroupMembership.ContactEmail.Trim()),
                     new JProperty("properties",
                         new JArray { 
                             new JObject( 
-                                new JProperty("property", "GroupMembership"),
+                                new JProperty("property", "groupMembership"),
                                 new JProperty("value", mpGroupMembership.GroupMembership)
                             )
                         }
