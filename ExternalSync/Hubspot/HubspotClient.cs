@@ -26,7 +26,9 @@ namespace ExternalSync.Hubspot
                 var request = new RestRequest(Method.POST);
                 var hubSpotApiKey = Environment.GetEnvironmentVariable("HUBSPOT_API_KEY");
                 request.Resource = $"/contacts/v1/contact/batch/?hapikey={hubSpotApiKey}";
+                Console.WriteLine($"Resource URL: { request.Resource}");
                 request.AddHeader("Accept", "application/json");
+                Console.WriteLine($"Records to process: {mpGroupParticipations.Count}");
 
                 // Send JSON objects to HubSpot in batches of 100 or less
                 int recordCount = 0;
